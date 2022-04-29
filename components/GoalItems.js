@@ -1,7 +1,10 @@
 import { StyleSheet, Text, Pressable } from "react-native";
 const GoalItem = ({ items, onDeleteGoal, id }) => {
   return (
-    <Pressable onPress={onDeleteGoal.bind(this, id)}>
+    <Pressable
+      android_ripple={{ color: "#dddddd" }}
+      onPress={onDeleteGoal.bind(this, id)}
+    >
       <Text style={styles.goalItem}>{items}</Text>
     </Pressable>
   );

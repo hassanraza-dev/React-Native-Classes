@@ -14,6 +14,7 @@ import GoalInput from "./components/GoalInput";
 
 export default function App() {
   const [goalList, setGoalList] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const goalInputHandler = (text) => {
     setGoalText(text);
   };
@@ -22,8 +23,15 @@ export default function App() {
       ...currentGoals,
       { text: enterText, id: Math.random().toString() },
     ]);
+    endAddGoalHandler();
   };
 
+  const startAddGoalHandler = () => {
+    setModalVisible(true);
+  };
+  const endAddGoalHandler = () => {
+    setModalVisible(false);
+  };
   const deleteGoalHandle = (id) => {
     setGoalList((currentGoals) => {
       return currentGoals.filter((value) => value.id !== id);
@@ -31,9 +39,16 @@ export default function App() {
   };
   return (
     <View style={styles.appWrapper}>
+      <Button
+        title="Add New Goal"
+        color="#222222"
+        onPress={startAddGoalHandler}
+      />
       <GoalInput
         changeTextHandler={goalInputHandler}
         addGoalHandler={addGoalHandler}
+        visible={modalVisible}
+        onCancel={endAddGoalHandler}
       />
       <View style={styles.goalsContainer}>
         <FlatList
@@ -60,6 +75,7 @@ const styles = StyleSheet.create({
   appWrapper: {
     padding: 70,
     flex: 1,
+    backgroundColor: "yellow",
   },
 
   goalsContainer: {
